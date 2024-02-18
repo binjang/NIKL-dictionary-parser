@@ -28,4 +28,4 @@ bash main.sh  # runs main.py in default configurations
 | Semantic Category  | `str` or `None`       | Semantic category of the word        | 단어 분류 (ex. '자연 > 기상 및 기후') |
 
 ## Future Updates
-- Support more arguments
+- Add support for more parsing arguments.
