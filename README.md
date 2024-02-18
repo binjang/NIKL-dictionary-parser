@@ -13,7 +13,7 @@ pip3 install -r requirements.txt  # installs dependencies
 ## Usage
 Edit `main.sh` arguments to parse the dictionary in custom configurations.
 ```shell
-bash main.sh  # runs main.py in default configurations
+bash main.sh  # runs main.py in default configurations, overwrites results.csv
 ```
 
 ## Data Description
