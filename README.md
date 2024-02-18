@@ -1,6 +1,6 @@
 # NIKL-dictionary-parser
 Unofficial parser for [NIKL Dictionary](https://krdict.korean.go.kr/kor/mainAction).
-As of January 2024, the dictionary contains 53,172 entries, 11 json files in total.
+As of January 2024, the dictionary contains 53,172 word entries, 11 json files in total.
 
 국립국어원의 "한국어기초사전"을 csv 파일로 파싱하는 라이브러리입니다. 최신 버전의 사전 파일들은 위 링크의 "사전 전체 내려받기" 버튼을 통해 다운받을 수 있습니다.
 2024년 1월 버전을 기준으로 53,172개의 항목, 11개 json 파일로 구성되어 있습니다.
@@ -11,7 +11,7 @@ pip3 install -r requirements.txt  # installs dependencies
 ```
 
 ## Usage
-Edit configurations on `main.sh`
+Edit `main.sh` arguments to parse the dictionary in custom configurations.
 ```shell
 bash main.sh  # runs main.py in default configurations
 ```
