@@ -1,10 +1,11 @@
-import pandas as pd
-import json
-from tqdm import tqdm
 import argparse
+import json
 from pathlib import Path
 
-from helpers import parse_feature, parse_equivalents, parse_examples
+import pandas as pd
+from tqdm import tqdm
+
+from helpers import parse_equivalents, parse_examples, parse_feature
 
 
 def main():
@@ -32,48 +33,28 @@ def main():
 
         entries = data['LexicalResource']['Lexicon']['LexicalEntry']
 
-        for i, entry in enumerate(entries):
-            if type(entry['Lemma']) is list:
-                form = parse_feature(entry['Lemma'][0], 'writtenForm')
-            else:
-                form = parse_feature(entry['Lemma'], 'writtenForm')
-
-            pos = parse_feature(entry, 'partOfSpeech')
-            pos = (pos if pos != "품사 없음" else None)
-            vocabulary_level = parse_feature(entry, 'vocabularyLevel')
-            vocabulary_level = (vocabulary_level if vocabulary_level != "없음" else None)
+        for entry in entries:
+            form = parse_feature(entry['Lemma'][0], 'writtenForm') if isinstance(entry['Lemma'], list) else parse_feature(entry['Lemma'], 'writtenForm')
+            pos = parse_feature(entry, 'partOfSpeech') if parse_feature(entry, 'partOfSpeech') != "품사 없음" else None
+            vocabulary_level = parse_feature(entry, 'vocabularyLevel') if parse_feature(entry, 'vocabularyLevel') != "없음" else None
             semantic_category = parse_feature(entry, 'semanticCategory')
 
             kor_definitions = []
             eng_definitions = []
             usage_lists = []
-            if type(entry['Sense']) is list:
+            if isinstance(entry['Sense'], list):
                 for meaning in entry['Sense']:
-                    kor_definition = parse_feature(meaning, 'definition')
-                    try:
-                        eng_definition = parse_equivalents(meaning, "영어", 'definition')
-                    except Exception as e:
-                        print(i)
-                        print(f"{eng_definition = }")
-                        raise e
-
-                    usage_list = parse_examples(meaning, ['문장', '대화'])
-
-                    kor_definitions.append(kor_definition)
-                    eng_definitions.append(eng_definition)
-                    usage_lists.extend(usage_list)
+                    kor_definitions.append(parse_feature(meaning, 'definition'))
+                    eng_definitions.append(parse_equivalents(meaning, "영어", 'definition'))
+                    usage_lists.extend(parse_examples(meaning, ['문장', '대화']))
 
             elif type(entry['Sense']) is dict:
                 if entry['Sense'].get('Equivalent', None) is None:
                     continue
 
-                kor_definition = parse_feature(entry['Sense'], 'definition')
-                eng_definition = parse_equivalents(entry['Sense'], "영어", 'definition')
-                usage_list = parse_examples(entry['Sense'], ['문장', '대화'])
-
-                kor_definitions.append(kor_definition)
-                eng_definitions.append(eng_definition)
-                usage_lists.extend(usage_list)
+                kor_definitions.append(parse_feature(entry['Sense'], 'definition'))
+                eng_definitions.append(parse_equivalents(entry['Sense'], "영어", 'definition'))
+                usage_lists.extend(parse_examples(entry['Sense'], ['문장', '대화']))
 
             else:
                 print(f"Unexpected type: {type(entry['Sense']) = }")
