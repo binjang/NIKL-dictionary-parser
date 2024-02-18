@@ -21,7 +21,7 @@ bash main.sh  # runs main.py in default configurations, overwrites results.csv
 |--------------------|-----------------------|--------------------------------------|----------------------------|
 | Form               | `str`                 | Registered word entry                | 단어                         |
 | Part of Speech     | `str` or `None`       | Part of speech of the word in Korean | 품사                         |
-| Korean Definition  | `str`                 | Definition of the word in Korean     | 해당 단어의 한글 정의               |
+| Korean Definition  | `List[str]`                 | Definition of the word in Korean     | 해당 단어의 한글 정의               |
 | English Definition | `List[str]` or `None` | Definition of the word in English    | 한글 정의의 영문 번역본              |
 | Usages             | `List[str]` or `None` | Sample sentence or dialogue          | 해당 단어의 예문 (문장 또는 대화 형식)    |
 | Vocabulary Level   | `str` or `None`       | Difficulty of the word (3 levels)    | 단어의 난이도 ('초급', '중금', '고급') |
