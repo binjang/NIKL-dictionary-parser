@@ -29,3 +29,7 @@ bash main.sh  # runs main.py in default configurations, overwrites results.csv
 
 ## Future Updates
 - Add support for more parsing arguments.
+
+## Other Links
+- [Huggingface dataset](https://huggingface.co/datasets/binjang/NIKL-korean-english-dictionary)
+
